@@ -20,7 +20,9 @@
     <p>
         Title: <input type="text" name="SearchString">
         Director: <input type="text" name="NameString">
+        Sort by Highest Rating  <input type="checkbox" name="SortRating">
         <input type="submit" value="Filter" />
+        <input type="submit" value="Sort" />
     </p>
 </form>
 
@@ -44,6 +46,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.movies[0].Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.movies[0].IMDB_Rating)
             </th>
             <th></th>
         </tr>
@@ -69,11 +74,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Rating)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IMDB_Rating)
+            </td>
 
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a> |
+                <a asp-action="Remove_IMDB_Rating" asp-route-id="@item.ID">Remove IMDB Rating</a>
             </td>
         </tr>
 }

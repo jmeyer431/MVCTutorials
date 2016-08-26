@@ -20,36 +20,62 @@ namespace MvcMovie_JustinMeyer.Controllers
         }
 
         // GET: Movies
-        public async Task<IActionResult> Index(string movieGenre, string searchString, string nameString)
+        public async Task<IActionResult> Index(string movieGenre, string searchString, string nameString, bool sortedChk)
         {
-            // Use LINQ to get list of genres.
-            IQueryable<string> genreQuery = from m in _context.Movie
-                                            orderby m.Genre
-                                            select m.Genre;
-
-            var movies = from m in _context.Movie
-                         select m;
-
-            if (!String.IsNullOrEmpty(searchString))
+            if (true)
             {
-                movies = movies.Where(s => s.Title.Contains(searchString));
+                IQueryable<double> IMDbRatingQuery = from i in _context.Movie
+                                                    orderby i.IMDB_Rating
+                                                    select i.IMDB_Rating;
+
+                var movies = from m in _context.Movie
+                             select m;
+
+                var movieGenreVM = new MovieGenreViewModel();
+                movieGenreVM.genres = new SelectList(await IMDbRatingQuery.Distinct().ToListAsync());
+                movieGenreVM.movies = await movies.ToListAsync();
+
+                return View(movieGenreVM);
             }
 
-            if (!String.IsNullOrEmpty(movieGenre))
+            else
             {
-                movies = movies.Where(x => x.Genre == movieGenre);
+
+                // Use LINQ to get list of genres.
+                IQueryable<string> genreQuery = from m in _context.Movie
+                                                orderby m.Genre
+                                                select m.Genre;
+
+                var movies = from m in _context.Movie
+                             select m;
+
+                if (!String.IsNullOrEmpty(searchString) && !String.IsNullOrEmpty(nameString))
+                {
+                    movies = movies.Where(s => s.Title.Contains(searchString));
+                    movies = movies.Where(s => s.Director.Contains(nameString));
+                }
+
+                else if (!String.IsNullOrEmpty(movieGenre))
+                {
+                    movies = movies.Where(x => x.Genre == movieGenre);
+                }
+
+                else if (!String.IsNullOrEmpty(nameString))
+                {
+                    movies = movies.Where(s => s.Director.Contains(nameString));
+                }
+
+                else if (!String.IsNullOrEmpty(searchString))
+                {
+                    movies = movies.Where(s => s.Title.Contains(searchString));
+                }
+
+                var movieGenreVM = new MovieGenreViewModel();
+                //movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
+                movieGenreVM.movies = await movies.ToListAsync();
+
+                return View(movieGenreVM);
             }
-
-            /*if (!String.IsNullOrEmpty(nameString))
-            {
-                movies = movies.Where(s => s.Director.Contains(nameString));
-            }*/
-
-            var movieGenreVM = new MovieGenreViewModel();
-            movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
-            movieGenreVM.movies = await movies.ToListAsync();
-
-            return View(movieGenreVM);
         }
 
         // GET: Movies/Details/5
@@ -80,7 +106,7 @@ namespace MvcMovie_JustinMeyer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Genre,Price,ReleaseDate,Title,Rating,Director")] Movie movie)
+        public async Task<IActionResult> Create([Bind("ID,Genre,Price,ReleaseDate,Title,Rating,Director,IMDB_Rating")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -113,7 +139,7 @@ namespace MvcMovie_JustinMeyer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Genre,Price,ReleaseDate,Title,Rating,Director")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Genre,Price,ReleaseDate,Title,Rating,Director,IMDB_Rating")] Movie movie)
         {
             if (id != movie.ID)
             {
@@ -171,9 +197,43 @@ namespace MvcMovie_JustinMeyer.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> Remove_IMDB_Rating(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var movie = await _context.Movie.SingleOrDefaultAsync(m => m.ID == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(movie);
+        }
+
+        // POST: Movies/Delete/5
+        [HttpPost, ActionName("Remove_IMDB_Rating")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Remove_IMDB_Confirmed(int id)
+        {
+            var movie = await _context.Movie.SingleOrDefaultAsync(m => m.ID == id);
+            movie.IMDB_Rating = 0.0;
+            _context.Movie.Update(movie);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
         private bool MovieExists(int id)
         {
             return _context.Movie.Any(e => e.ID == id);
         }
+
+        /*[HttpPost, ActionName("Sort")]
+        public async Task<IActionResult> sortIMDB(bool Checkbox1)
+        {
+            bool ischecked = Checkbox1;
+        }*/
     }
 }

@@ -40,10 +40,24 @@
             </div>
         </div>
         <div class="form-group">
+            <label asp-for="Director" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Director" class="form-control" />
+                <span asp-validation-for="Director" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
             <label asp-for="Rating" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="Rating" class="form-control" />
                 <span asp-validation-for="Rating" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="IMDB_Rating" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="IMDB_Rating" class="form-control" />
+                <span asp-validation-for="IMDB_Rating" class="text-danger" />
             </div>
         </div>
         <div class="form-group">

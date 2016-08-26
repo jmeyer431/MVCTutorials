@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace MvcMovie_JustinMeyer.Models
 {
-    public class MovieGenreViewModel
+    public class MovieIMDB
     {
         public List<Movie> movies;
-        public SelectList genres;
-        public double IMDB_Rating
+        public SelectList IMDB_Rating;
+        public string movieGenre
         {
             get;
             set;
