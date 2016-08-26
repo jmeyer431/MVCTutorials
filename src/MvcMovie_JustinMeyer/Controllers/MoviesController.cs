@@ -20,7 +20,7 @@ namespace MvcMovie_JustinMeyer.Controllers
         }
 
         // GET: Movies
-        public async Task<IActionResult> Index(string movieGenre, string searchString)
+        public async Task<IActionResult> Index(string movieGenre, string searchString, string nameString)
         {
             // Use LINQ to get list of genres.
             IQueryable<string> genreQuery = from m in _context.Movie
@@ -39,6 +39,11 @@ namespace MvcMovie_JustinMeyer.Controllers
             {
                 movies = movies.Where(x => x.Genre == movieGenre);
             }
+
+            /*if (!String.IsNullOrEmpty(nameString))
+            {
+                movies = movies.Where(s => s.Director.Contains(nameString));
+            }*/
 
             var movieGenreVM = new MovieGenreViewModel();
             movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
@@ -75,7 +80,7 @@ namespace MvcMovie_JustinMeyer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Genre,Price,ReleaseDate,Title,Rating")] Movie movie)
+        public async Task<IActionResult> Create([Bind("ID,Genre,Price,ReleaseDate,Title,Rating,Director")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -83,6 +88,7 @@ namespace MvcMovie_JustinMeyer.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+
             return View(movie);
         }
 
@@ -107,7 +113,7 @@ namespace MvcMovie_JustinMeyer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Genre,Price,ReleaseDate,Title,Rating")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Genre,Price,ReleaseDate,Title,Rating,Director")] Movie movie)
         {
             if (id != movie.ID)
             {

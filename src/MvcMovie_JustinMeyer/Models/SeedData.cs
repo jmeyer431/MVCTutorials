@@ -22,6 +22,7 @@ namespace MvcMovie_JustinMeyer.Models
                     new Movie
                     {
                         Title = "When Harry Met Sally",
+                        Director = "Rob Reiner",
                         ReleaseDate = DateTime.Parse("1989-1-11"),
                         Genre = "Romantic Comedy",
                         Rating = "R",
@@ -30,28 +31,31 @@ namespace MvcMovie_JustinMeyer.Models
                     new Movie
                     {
                         Title = "Ghostbusters",
+                        Director = "Ivan Reitman",
                         ReleaseDate = DateTime.Parse("1984-3-13"),
                         Genre = "Comedy",
-                        Rating = "R",
-                        Price = 8.99M
+                        Rating = "PG",
+                        Price = 8.99M                        
                     },
 
                     new Movie
                     {
                         Title = "Ghostbusters 2",
+                        Director = "Ivan Reitman",
                         ReleaseDate = DateTime.Parse("1986-2-23"),
                         Genre = "Comedy",
-                        Rating = "R",
+                        Rating = "PG",
                         Price = 9.99M
                     },
 
                     new Movie
                     {
                         Title = "Rio Bravo",
+                        Director = "Howard Hawks",
                         ReleaseDate = DateTime.Parse("1959-4-15"),
                         Genre = "Western",
-                        Rating = "R",
-                        Price = 3.99M
+                        Rating = "N/A",
+                        Price = 3.99M                        
                     }
                         );
 

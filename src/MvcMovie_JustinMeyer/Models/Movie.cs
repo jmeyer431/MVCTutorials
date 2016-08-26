@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace MvcMovie_JustinMeyer.Models
@@ -14,6 +13,13 @@ namespace MvcMovie_JustinMeyer.Models
 
         [StringLength(60, MinimumLength = 3)]
         public string Title
+        {
+            get;
+            set;
+        }
+
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$"), StringLength(50)]
+        public string Director
         {
             get;
             set;
