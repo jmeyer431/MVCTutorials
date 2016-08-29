@@ -53,6 +53,13 @@ namespace MvcMovie_JustinMeyer.Models
             set;
         }
 
+        [Display(Name = "IMDB Rating")]
+        public double IMDB_Rating
+        {
+            get;
+            set;
+        }
+
        
     }
 }
