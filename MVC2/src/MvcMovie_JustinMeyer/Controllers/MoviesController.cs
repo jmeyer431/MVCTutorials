@@ -192,7 +192,7 @@ namespace MvcMovie_JustinMeyer.Controllers
             return _context.Movie.Any(e => e.ID == id);
         }
 
-        /*public async Task<IActionResult> Remove_IMDB_Rating(int? id)
+        public async Task<IActionResult> Remove_IMDB_RatingConfirmed(int? id)
         {
             if (id == null)
             {
@@ -206,7 +206,7 @@ namespace MvcMovie_JustinMeyer.Controllers
             }
 
             return View(movie);
-        }*/
+        }
 
         // POST: Movies/Delete/5
         [HttpPost, ActionName("Remove_IMDB_Rating")]
