@@ -1,0 +1,13 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   MVC2/src/MvcMovie_JustinMeyer/Controllers/MoviesController.cs
+#	modified:   MVC2/src/MvcMovie_JustinMeyer/Models/SeedData.cs
+#	modified:   MVC2/src/MvcMovie_JustinMeyer/Views/Movies/Index.cshtml
+#	renamed:    MVC2/src/MvcMovie_JustinMeyer/Views/Movies/Remove_IMDB_Rating.cshtml -> MVC2/src/MvcMovie_JustinMeyer/Views/Movies/RemoveIMDBRating.cshtml
+#
+

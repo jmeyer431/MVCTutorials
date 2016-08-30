@@ -36,7 +36,7 @@ namespace MvcMovie_JustinMeyer.Models
                         ReleaseDate = DateTime.Parse("1984-3-13"),
                         Genre = "Comedy",
                         Rating = "PG",
-                        IMDB_Rating = 0.0,
+                        IMDB_Rating = 0.5,
                         Price = 8.99M                        
                     },
 
@@ -58,7 +58,7 @@ namespace MvcMovie_JustinMeyer.Models
                         ReleaseDate = DateTime.Parse("1959-4-15"),
                         Genre = "Western",
                         Rating = "N/A",
-                        IMDB_Rating = 0.0,
+                        IMDB_Rating = 2.3,
                         Price = 3.99M                        
                     }
                         );

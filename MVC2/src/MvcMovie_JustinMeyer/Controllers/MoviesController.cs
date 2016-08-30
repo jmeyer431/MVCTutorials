@@ -209,7 +209,7 @@ namespace MvcMovie_JustinMeyer.Controllers
         }
 
         // POST: Movies/Delete/5
-        [HttpPost, ActionName("Remove_IMDB_Rating")]
+        [HttpPost, ActionName("RemoveIMDBRating")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Remove_IMDB_Rating(int id)
         {
