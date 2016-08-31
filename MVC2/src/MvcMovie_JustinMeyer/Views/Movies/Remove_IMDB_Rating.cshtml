@@ -1,8 +1,11 @@
 ﻿@model MvcMovie_JustinMeyer.Models.Movie
+
 @{
     ViewData["Title"] = "Remove IMDB Rating";
 }
+
 <h2>Remove IMDB Rating</h2>
+
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Movie</h4>
@@ -18,7 +21,7 @@
 
     <form asp-action="Remove_IMDB_Rating">
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Remove IMDB Rating" class="btn btn-default" /> |
             <a asp-action="Index">Back to List</a>
         </div>
     </form>

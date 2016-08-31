@@ -96,7 +96,7 @@ namespace MvcMovie_JustinMeyer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Genre,Price,ReleaseDate,Title,Rating,Director,imdbRating")] Movie movie)
+        public async Task<IActionResult> Create([Bind("ID,Genre,Price,ReleaseDate,Title,Rating,Director,IMDB_Rating")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -129,7 +129,7 @@ namespace MvcMovie_JustinMeyer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Genre,Price,ReleaseDate,Title,Rating,Director,imdbRating")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Genre,Price,ReleaseDate,Title,Rating,Director,IMDB_Rating")] Movie movie)
         {
             if (id != movie.ID)
             {
@@ -143,6 +143,7 @@ namespace MvcMovie_JustinMeyer.Controllers
                     _context.Update(movie);
                     await _context.SaveChangesAsync();
                 }
+
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!MovieExists(movie.ID))
@@ -154,6 +155,7 @@ namespace MvcMovie_JustinMeyer.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction("Index");
             }
             return View(movie);
@@ -208,8 +210,25 @@ namespace MvcMovie_JustinMeyer.Controllers
             return View(movie);
         }
 
+        // GET: Movies/Delete/5
+        public async Task<IActionResult> Remove_IMDB_Rating(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var movie = await _context.Movie.SingleOrDefaultAsync(m => m.ID == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(movie);
+        }
+
         // POST: Movies/Delete/5
-        [HttpPost, ActionName("RemoveIMDBRating")]
+        [HttpPost, ActionName("Remove_IMDB_Rating")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Remove_IMDB_Rating(int id)
         {

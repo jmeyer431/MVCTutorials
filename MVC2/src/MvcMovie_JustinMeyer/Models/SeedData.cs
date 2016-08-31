@@ -47,7 +47,7 @@ namespace MvcMovie_JustinMeyer.Models
                         ReleaseDate = DateTime.Parse("1986-2-23"),
                         Genre = "Comedy",
                         Rating = "PG",
-                        IMDB_Rating = 1.0,
+                        IMDB_Rating = 0.7,
                         Price = 9.99M
                     },
 
