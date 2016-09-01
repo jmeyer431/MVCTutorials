@@ -21,27 +21,7 @@ namespace MvcMovie_JustinMeyer.Controllers
 
         // GET: Movies
         public async Task<IActionResult> Index(string movieGenre, string searchString, string nameString, bool sortBox)
-        {
-            if (sortBox == true)
-            {
-                IQueryable<double> IMDBQuery = from i in _context.Movie
-                                               orderby i.IMDB_Rating
-                                               select i.IMDB_Rating;
-
-                var movies = from i in _context.Movie
-                             select i;
-
-                movies = movies.OrderByDescending(s => s.IMDB_Rating);
-
-                var movieIMDBVM = new MovieIMDBViewModel();
-                movieIMDBVM.genres = new SelectList(await IMDBQuery.Distinct().ToListAsync());
-                movieIMDBVM.movies = await movies.ToListAsync();
-
-                return View(movieIMDBVM);
-            }
-
-            else
-            {
+        {        
                 // Use LINQ to get list of genres.
                 IQueryable<string> genreQuery = from m in _context.Movie
                                                 orderby m.Genre
@@ -50,7 +30,9 @@ namespace MvcMovie_JustinMeyer.Controllers
                 var movies = from m in _context.Movie
                              select m;
 
-                if (!String.IsNullOrEmpty(searchString) && !String.IsNullOrEmpty(nameString))
+            movies = movies.OrderByDescending(s => s.IMDB_Rating);
+
+            if (!String.IsNullOrEmpty(searchString) && !String.IsNullOrEmpty(nameString))
                 {
                     movies = movies.Where(s => s.Title.Contains(searchString));
                     movies = movies.Where(s => s.Director.Contains(nameString));
@@ -76,7 +58,7 @@ namespace MvcMovie_JustinMeyer.Controllers
                 movieGenreVM.movies = await movies.ToListAsync();
 
                 return View(movieGenreVM);
-            //}
+            
         }
 
             
